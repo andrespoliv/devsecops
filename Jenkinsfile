@@ -33,7 +33,7 @@ pipeline {
           def scannerHome = tool 'SonarQube Scanner'
           def projectKey = "devsecops"
           withSonarQubeEnv('Sonar Server'){
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.java.binaries=build/classes/java/ -Dsonar.projectKey=${projectKey} -Dsonar.sources=."
+            sh "${scannerHome}/bin/sonar-scanner -Dsonar.java.binaries=target/classes -Dsonar.projectKey=${projectKey} -Dsonar.sources=."
             }
         }
       }
