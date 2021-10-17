@@ -38,5 +38,11 @@ pipeline {
         }
       }
     }
+    stage('OWASP Dependency Check'){
+      steps{
+        sh 'mvn org.owasp:dependency-check-maven:check'
+        archiveArtifacts artifacts: 'target/dependency-check-report.html', followSymlinks: false
+      }
+    }
   }
 }
