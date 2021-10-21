@@ -55,17 +55,7 @@ pipeline {
         		   env.TARGET = 'http://zero.webappsecurity.com/'
         	
         		    sh "${DOCKER_EXEC} pull owasp/zap2docker-stable"
-                    sh '${DOCKER_EXEC} run --add-host="localhost:192.168.100.4" --rm -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 --name zap2 -u zap -p 8093:8093 -d owasp/zap2docker-stable zap.sh -daemon -port 8093 -host 0.0.0.0 -config api.disablekey=true'
-                    sh '${DOCKER_EXEC} run --add-host="localhost:192.168.100.4" -v C:/Users/andre/Desktop/tarea_4/Repo muestra/devsecops:/zap/wrk/:rw --rm -i owasp/zap2docker-stable zap-full-scan.py -t "http://zero.webappsecurity.com/" -I -r zap_baseline_report.html -l PASS'	
-        		   
-        		   publishHTML([
-        				    allowMissing: false,
-        				    alwaysLinkToLastBuild: false,
-        				    keepAll: false,
-        				    reportDir: '/var/jenkins_home/tools/',
-        				    reportFiles: 'zap_baseline_report.html',
-        				    reportName: 'HTML Report',
-        				    reportTitles: ''])
+                sh "${DOCKER_EXEC} run -v C:/Users/andre/Desktop/tarea_4/jenkins_home/workspace/devsecops-sast_feature-jenkins/:/zap/wrk/ -i owasp/zap2docker-stable zap-full-scan.py -t ${TARGET} -g gen.conf -r testreport.html -l PASS"
         		}
             }
         }
