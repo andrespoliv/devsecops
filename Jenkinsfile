@@ -51,7 +51,7 @@ pipeline {
                 script{
                   env.DOCKER = tool "Docker"
                   env.DOCKER_EXEC = "${DOCKER}/bin/docker"
-                  sh "${DOCKER_EXEC} run --rm -v C:/Users/andre/Desktop/tarea_4/jenkins_home/workspace/devsecops-sast_feature-jenkins:/root/.cache/ aquasec/trivy python:3.4-alpine"
+                  sh "${DOCKER_EXEC} run --rm -v C:/Users/andre/Desktop/tarea_4/jenkins_home/workspace/devsecops-sast_feature-jenkins:/root/.cache/ aquasec/trivy openjdk:8-jdk-alpine"
                   sh "${DOCKER_EXEC} rmi aquasec/trivy"
                 }
             }
